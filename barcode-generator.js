@@ -25,29 +25,17 @@ class Barcode {
         let div = document.getElementById(base_div);
         let bar = document.createElement('div');
 
-        bar.style.height = `${this.height}px`;
+        bar.style.height = this.height;
         bar.style.border = 0;
         bar.style.float = 'left';
 
-        switch(type){
+        if (type.substr(0, 1) === 'b') 
+            bar.style.backgroundColor = 'black';
+        else bar.style.backgroundColor = 'white';
 
-            case 'bt': //black then
-                bar.style.width = `${this.then}px`;
-                bar.style.backgroundColor = 'black';
-            break;
-            case 'bb': //black broad
-                bar.style.width = `${this.broad}px`;
-                bar.style.backgroundColor = 'black';
-            break;
-            case 'wt': //white then
-                bar.style.width = `${this.then}px`;
-                bar.style.backgroundColor = 'white';
-            break;
-            case 'wb': //white broad
-                bar.style.width = `${this.broad}px`;
-                bar.style.backgroundColor = 'white';
-            break;
-        }
+        if (type.substr(1) === 't')
+            bar.style.width = this.then;
+        else bar.style.width = this.broad;
 
         div.appendChild(bar);
     }
@@ -80,31 +68,17 @@ class Barcode {
         while(text.length > 0){
             
             let i = Math.round(text.substr(0, 2));
-            
+
             text = text.substr(text.length - (text.length - 2), (text.length - 2));
-            
-            let f = '';
-            if (this.barcodes[i] != '')
-                f = this.barcodes[i];
 
-            for (let i = 1; i < 11; i+=2){
-                
-                let type_bar1 = '';
-                if (f.substr((i-1), 1) == '0'){
-                    type_bar1 = 'bt';
-                }else{
-                    type_bar1 = 'bb';
-                }
+            let f = (this.barcodes[i] != '') ? this.barcodes[i] : '';
+             
+            for (let i = 1; i < 11; i += 2){
 
+                let type_bar1 = (f.substr((i - 1), 1) == '0') ? 'bt' : 'bb';
                 this.createBar(base_div, type_bar1);
 
-                let type_bar2 = '';
-                if (f.substr(i, 1) == '0'){
-                    type_bar2 = 'wt';
-                }else{
-                    type_bar2 = 'wb';
-                }
-
+                let type_bar2 = (f.substr(i, 1) == '0') ? 'wt' : 'wb';
                 this.createBar(base_div, type_bar2);
             }
         }
