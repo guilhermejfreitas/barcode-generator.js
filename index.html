@@ -1,0 +1,11 @@
+<html>
+    <head></head>
+    <body>
+        <div id="barcode"></div>
+        <script src="barcode-generator.js"></script>
+        <script>
+            const barcode = new Barcode('barcode', '756978094000000799013010010968528323137870', {then:1, broad:3, height:50});
+            barcode.generateBarcode();
+        </script>
+    </body>
+</html>
