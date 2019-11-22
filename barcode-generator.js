@@ -1,19 +1,21 @@
 class Barcode {
 
-    constructor(div_id, code, data = {then: 1, broad: 3, height: 50}){
+    constructor(div_id, code, then = 1, broad = 3, height = 50){
         this.div_id = div_id;
         this.code = code;
-        this.then = data.then;
-        this.broad = data.broad;
-        this.height = data.height;
+        this.then = then;
+        this.broad = broad;
+        this.height = height;
         this.barcodes = ['00110', '10001', '01001', '11000', '00101', '10100', '01100', '00011', '10010', '01010'];
     }
 
     createBaseDiv(){
+        
         let main_div = document.getElementById(this.div_id);
         let base_div = document.createElement('div');
+        let id = Math.floor(Math.random() * (Math.floor(999999) - Math.ceil(100000))) + Math.ceil(100000);
 
-        base_div.setAttribute('id', 'barcode-generator-main-div');
+        base_div.setAttribute('id', `barcode-${id}`);
 
         main_div.appendChild(base_div);
 
